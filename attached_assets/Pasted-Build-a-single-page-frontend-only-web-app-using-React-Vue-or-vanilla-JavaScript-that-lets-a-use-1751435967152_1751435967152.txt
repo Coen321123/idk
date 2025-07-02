@@ -1,0 +1,98 @@
+Build a single-page, frontend-only web app (using React, Vue, or vanilla JavaScript) that lets a user create custom games and websites by writing natural language prompts, with the AI code generation done by calling the Groq API directly from the browser. The app should have no backend server and everything must run securely and smoothly in the browser.
+
+Features:
+User Interface:
+
+A clean, modern, responsive UI with two main tabs or buttons:
+
+"Create Game"
+
+"Create Website"
+
+A large multi-line text input area where the user types a detailed natural language prompt describing the game or website they want to generate.
+
+A "Generate" button that sends the prompt to the AI and requests generated code.
+
+Display the AI’s generated code in a code editor area with syntax highlighting and line numbers (using CodeMirror, Monaco Editor, or similar).
+
+Show a live preview panel beside or below the code editor that renders the generated HTML/CSS/JS safely inside a sandboxed iframe.
+
+A "Download Project" button that bundles the generated code files into a ZIP archive and downloads it locally.
+
+A settings modal or sidebar where the user can enter and securely save their Groq API key to browser localStorage.
+
+Loading spinner or progress indicator during AI request and code generation.
+
+Error handling UI for failed API calls or invalid input.
+
+AI Integration (Frontend):
+
+Use JavaScript’s fetch API to POST to the Groq API endpoint:
+https://api.groq.com/openai/v1/chat/completions
+
+Use the model "meta-llama/llama-4-scout-17b-16e-instruct" for generating code.
+
+Construct the POST body as JSON with this structure:
+
+json
+Copy
+Edit
+{
+  "model": "meta-llama/llama-4-scout-17b-16e-instruct",
+  "messages": [
+    {
+      "role": "user",
+      "content": "<user's natural language prompt here>"
+    }
+  ]
+}
+Include the user’s API key from localStorage in the Authorization header as:
+Authorization: Bearer <API_KEY>
+
+Parse the AI’s response to extract the generated code string.
+
+Code Preview & Security:
+
+Render the generated code in a sandboxed iframe to prevent any security risks or interference with the main app.
+
+The iframe should refresh with each new generated code to show the latest preview instantly.
+
+Download Functionality:
+
+Bundle the generated HTML, CSS, and JavaScript code into separate files as needed.
+
+Use JSZip (or similar) to create a downloadable ZIP archive of the project files.
+
+Trigger a download prompt to save the ZIP locally.
+
+User Experience:
+
+Save and auto-load the user’s API key and last prompt from localStorage for convenience.
+
+Provide a clear button to reset the input and generated code.
+
+Responsive design: side-by-side code editor and preview on desktops, stacked vertically on smaller screens.
+
+Use clean, readable fonts like Montserrat or Poppins.
+
+Provide tooltips or small help text to guide new users.
+
+Bonus Features (Optional):
+
+Provide a list of example prompts/templates for quick start.
+
+Add light/dark theme toggle.
+
+Allow minimal editing of generated code before download.
+
+Summary:
+Build me a fully frontend, single-page application that acts as an AI-powered creative studio where I enter natural language prompts to generate complete games or websites. The app calls the Groq AI API directly from the browser (with user-provided API key), displays the generated code in an editor, previews it live, and lets me download the project as a zip. The UI should be modern, intuitive, and responsive, with good error handling and security practices for sandboxing the preview.
+
+API info for integration:
+Endpoint: https://api.groq.com/openai/v1/chat/completions
+
+Model: "meta-llama/llama-4-scout-17b-16e-instruct"
+
+Authorization: Bearer <user’s API key> in HTTP headers
+
+Request body: JSON as above
